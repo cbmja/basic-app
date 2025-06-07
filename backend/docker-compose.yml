@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: basic-app-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: basic-app
+    volumes:
+      - basic-app_db:/var/lib/postgresql/data
+
+volumes:
+  basic-app_db:
