@@ -9,62 +9,160 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
+enum Status {
+  active
+  dormant
+  delete
+  suspend
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
-  expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sessions")
+enum UserType {
+  seller
+  vendor
 }
 
+// 회원
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime? @map("email_verified")
-  hashedPassword String?   @map("hashed_password")
-  image          String?
+  id               String   @id @default(uuid()) @db.Uuid
 
-  accounts Account[]
-  sessions Session[]
+  name             String
+  email            String
+  password         String
 
-  @@map("users")
+  latitude         Decimal? // 위도
+  longitude        Decimal? // 경도
+  address          String   // 주소(현위치)
+  type             UserType   // seller(구매자) / vendor(판매자)
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  Restaurants Restaurant[]
+
+  @@unique([name, email])
+  @@map("user")
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
 
-  @@unique([identifier, token])
-  @@map("verification_tokens")
+model Restaurant {
+  id               String   @id @default(uuid()) @db.Uuid
+
+  userId           String   @map("user_id")
+  title            String
+  desc             String?
+  latitude         Decimal? // 위도
+  longitude        Decima?  // 경도
+  address          String   // 주소(현위치)
+  openTime         String   @map("open_time") // 오픈시간
+  closeTime        String   @map("close_time") // 마감시간
+  breakStartTime   String?  @map("break_start_time") // 브레이크타임 시작 시간
+  breakEndTime     String?  @map("break_end_time") // 브레이크 타임 마감 시간
+  businessHourDesc String?  @map("business_hour_desc") // 영업시간 설명
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // 식당 주인
+  restaurantTypeRelations RestaurantTypeRelation[]
+  menus Menu[]
+
+  @@map("restaurant")
+}
+
+enum RestaurantTypeTitle {
+  korean
+  chinese
+  japanese
+  thai
+  indian
+  custom
+  other
+}
+model RestaurantType {
+  id               String   @id @default(uuid()) @db.Uuid
+
+  title            RestaurantTypeTitle
+  custom           String?  // 직접입력시 입력한거
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  restaurantTypeRelations RestaurantTypeRelation[]
+
+  @@unique([title, custom])
+  @@map("restaurant_type")
+}
+
+
+model RestaurantTypeRelation {
+  id               String   @id @default(uuid()) @db.Uuid
+
+  restaurantId     String   @map("restaurant_id")
+  restaurantTypeId String   @map("restaurant_type_id")
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurantType RestaurantType @relation(fields: [restaurantTypeId], references: [id], onDelete: Cascade)
+
+  @@map("restaurant_type_relation")
+}
+
+
+enum MenuType {
+  constant
+  variable
+  drink
+}
+model Menu {
+  id               String   @id @default(uuid()) @db.Uuid
+
+  restaurantId     String   @map("restaurant_id")
+  type             MenuType
+  price            String
+  desc             String?
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@map("menu")
+}
+
+
+model Auth {
+  id               String   @id @default(uuid()) @db.Uuid
+
+  email            String
+  authCode         String   @map("auth_code")
+
+  status           Status   @default(active)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  createBy         String   @map("create_by")
+  updateBy         String   @map("update_by")
+
+  @@map("auth")
 }
