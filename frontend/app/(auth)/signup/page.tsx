@@ -1,4 +1,3 @@
-/*
 "use client";
 
 import Link from "next/link";
@@ -89,7 +88,8 @@ export default function SignupPage() {
     );
 }
 
-*/
+
+/*
 "use client";
 
 import Link from "next/link";
@@ -174,3 +174,4 @@ export default function SignupPage() {
         </div>
     );
 }
+*/

@@ -1,4 +1,3 @@
-/*
 "use client";
 
 import { useState } from "react";
@@ -69,7 +68,8 @@ export default function SigninPage() {
     );
 }
 
-*/
+
+/*
 "use client";
 
 import Link from "next/link";
@@ -130,4 +130,4 @@ export default function SigninPage() {
             </form>
         </div>
     );
-}
+}*/
