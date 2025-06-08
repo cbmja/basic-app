@@ -43,8 +43,8 @@ export default function SignupPage() {
                  backgroundSize: 'cover',
                  backgroundPosition: 'center',
              }}>
-            <h1 className="text-3xl font-bold">signUp</h1>
-            <p className="text-gray-700">welcome.</p>
+            <h1 className="text-3xl font-bold">회원가입</h1>
+            <p className="text-gray-700">환영합니다.</p>
 
             <Separator style={{ width: "50%" }} />
 
@@ -53,34 +53,34 @@ export default function SignupPage() {
                 className="flex flex-col gap-2 min-w-[400px]"
                 style={{backgroundColor: "#FFFFFF", padding: "40px", borderRadius: "8px"}}
             >
-                <Label htmlFor="email">email</Label>
+                <Label htmlFor="email">이메일</Label>
                 <Input value={email}
                        onChange={(e) => setEmail(e.target.value)}
                        type="email"
                        name="email"
-                       placeholder="email@domain.com"/>
+                       placeholder="이메일 형식에 맞게 입력해주세요."/>
 
-                <Label htmlFor="password">password</Label>
+                <Label htmlFor="password">비밀번호</Label>
                 <Input value={password}
                        onChange={(e) => setPassword(e.target.value)}
                        type="password"
                        name="password"
-                       placeholder="password"/>
+                       placeholder="비밀번호"/>
 
-                <Label htmlFor="passwordConfirm">password</Label>
+                <Label htmlFor="passwordConfirm">비밀번호 확인</Label>
                 <Input value={passwordConfirm}
                        onChange={(e) => setPasswordConfirm(e.target.value)}
                        type="password"
                        name="passwordConfirm"
-                       placeholder="password confirm"/>
+                       placeholder="비밀번호 확인"/>
 
                 <Button variant="blue"
                         type="submit"
                         style={{cursor: "pointer"}}
-                >signUp</Button>
+                >회원가입</Button>
 
                 <Button asChild >
-                    <Link href="/signin">signIn</Link>
+                    <Link href="/signin">로그인</Link>
                 </Button>
             </form>
         </div>

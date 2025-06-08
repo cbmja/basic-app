@@ -29,8 +29,8 @@ export default function SigninPage() {
                  backgroundSize: 'cover',
                  backgroundPosition: 'center',
              }}>
-            <h1 className="text-3xl font-bold">signIn</h1>
-            <p className="text-gray-700">welcome back.</p>
+            <h1 className="text-3xl font-bold">로그인</h1>
+            <p className="text-gray-700">환영합니다.</p>
 
             <Separator style={{ width: "50%" }} />
 
@@ -39,27 +39,27 @@ export default function SigninPage() {
                 className="flex flex-col gap-2 min-w-[400px]"
                 style={{backgroundColor: "#FFFFFF", padding: "40px", borderRadius: "8px"}}
             >
-                <Label htmlFor="email">email</Label>
+                <Label htmlFor="email">이메일</Label>
                 <Input value={email}
                        onChange={(e) => setEmail(e.target.value)}
                        type="email"
                        name="email"
-                       placeholder="example@domain.com"/>
+                       placeholder="이메일 형식에 맞게 입력해주세요."/>
 
-                <Label htmlFor="password">password</Label>
+                <Label htmlFor="password">비밀번호</Label>
                 <Input value={password}
                        onChange={(e) => setPassword(e.target.value)}
                        type="password"
                        name="password"
-                       placeholder="password"/>
+                       placeholder="비밀번호"/>
 
                 <Button variant="blue"
                         type="submit"
                         style={{cursor: "pointer"}}
-                        >signIn</Button>
+                        >로그인</Button>
 
                 <Button asChild>
-                    <Link href="/signup">signUp</Link>
+                    <Link href="/signup">회원가입</Link>
                 </Button>
             </form>
         </div>
