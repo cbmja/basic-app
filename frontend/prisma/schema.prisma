@@ -4,6 +4,9 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+// pnpm prisma studio
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -55,11 +58,11 @@ model User {
 model Restaurant {
   id               String   @id @default(uuid()) @db.Uuid
 
-  userId           String   @map("user_id")
+  userId           String   @map("user_id") @db.Uuid
   title            String
   desc             String?
   latitude         Decimal? // 위도
-  longitude        Decima?  // 경도
+  longitude        Decimal?  // 경도
   address          String   // 주소(현위치)
   openTime         String   @map("open_time") // 오픈시간
   closeTime        String   @map("close_time") // 마감시간
@@ -111,8 +114,8 @@ model RestaurantType {
 model RestaurantTypeRelation {
   id               String   @id @default(uuid()) @db.Uuid
 
-  restaurantId     String   @map("restaurant_id")
-  restaurantTypeId String   @map("restaurant_type_id")
+  restaurantId     String   @map("restaurant_id") @db.Uuid
+  restaurantTypeId String   @map("restaurant_type_id") @db.Uuid
 
   status           Status   @default(active)
   createdAt        DateTime @default(now()) @map("created_at")
@@ -135,7 +138,7 @@ enum MenuType {
 model Menu {
   id               String   @id @default(uuid()) @db.Uuid
 
-  restaurantId     String   @map("restaurant_id")
+  restaurantId     String   @map("restaurant_id") @db.Uuid
   type             MenuType
   price            String
   desc             String?
