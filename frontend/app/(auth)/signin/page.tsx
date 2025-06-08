@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
+import { Input } from "@/components/shadcn/input"
+import { Button } from "@/components/shadcn/button"
+import { Label } from "@/components/shadcn/label"
+import { Separator } from "@/components/shadcn/separator"
 import Link from "next/link";
 
 export default function SigninPage() {

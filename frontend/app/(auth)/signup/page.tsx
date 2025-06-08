@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signUp } from "@/app/actions/auth-actions";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { Input } from "@/components/shadcn/input"
+import { Button } from "@/components/shadcn/button"
+import { Label } from "@/components/shadcn/label"
+import { Separator } from "@/components/shadcn/separator"
+import { AspectRatio } from "@/components/shadcn/aspect-ratio"
 import Image from "next/image";
 
 export default function SignupPage() {
