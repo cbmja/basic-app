@@ -58,9 +58,11 @@ export default function SigninPage() {
                         style={{cursor: "pointer"}}
                         >로그인</Button>
 
-                <Button asChild>
+                <div style={{display: "flex", justifyContent: "space-between", fontSize: "13px"}}>
                     <Link href="/signup">회원가입</Link>
-                </Button>
+                    <Link href="/#">비밀번호 찾기</Link>
+                </div>
+
             </form>
         </div>
     );
