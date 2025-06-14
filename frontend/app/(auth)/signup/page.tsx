@@ -44,7 +44,7 @@ export default function SignupPage() {
                  backgroundPosition: 'center',
              }}>
             <h1 className="text-3xl font-bold">회원가입</h1>
-            <p className="text-gray-700">환영합니다.</p>
+            <div className="text-lg font-semibold">환영합니다.</div>
 
             <Separator style={{ width: "50%" }} />
 
